@@ -43,7 +43,7 @@ from jonathankatznew1.Models.Forms import CollapseForm
 
 
 from os import path
-from flask_bootstr67ap import Bootstrap
+from flask_bootstrap import bootstrap # לא משתנה
 bootstrap = Bootstrap(app)
 ###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
 
