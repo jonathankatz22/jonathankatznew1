@@ -48,7 +48,8 @@
     <Folder Include="jonathankatznew1\templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jonathankatznew1\static\Data\users.csv" />
+    <Content Include="jonathankatznew1\static\Data\deaths.csv" />
+    <Content Include="jonathankatznew1\templates\Recovery.html" />
     <Content Include="jonathankatznew1\templates\register.html" />
     <Content Include="jonathankatznew1\templates\login.html" />
     <Content Include="..\..\..\..\Desktop\requirements.txt">
@@ -80,6 +81,9 @@
     <Content Include="jonathankatznew1\templates\contact.html" />
     <Content Include="jonathankatznew1\templates\index.html" />
     <Content Include="jonathankatznew1\templates\layout.html" />
+    <Content Include="jonathankatznew1\templates\Data.html" />
+    <Content Include="jonathankatznew1\templates\deaths.html" />
+    <Content Include="jonathankatznew1\templates\Open.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

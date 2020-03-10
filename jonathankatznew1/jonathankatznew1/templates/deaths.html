@@ -1,0 +1,42 @@
+﻿{% extends "layout.html" %}
+
+
+{% block content %}
+
+<h2>Corona virus death ratio is an area of concern for the world health orgnaization and governments. These try to assess the level of fatality of this virus and what populations are most volenurable</h2>
+
+
+<div class="row">
+    <div class="col-md-3">Province/State</div>
+    <div class="col-md-9">The Province/State</div>
+</div>
+<p></p>
+<div class="row">
+    <div class="col-md-3">Country</div>
+    <div class="col-md-9">The country</div>
+</div>
+<p></p>
+<div class="row">
+    <div class="col-md-3">Date</div>
+    <div class="col-md-9">The number of deceased people on a given date in a given province/state and country</div>
+</div>
+<p></p>
+
+<div class="row">
+    <div class="col-md-5">
+        <form method="post">
+            {{ form1.csrf_token }}
+            <input class="btn btn-success" type="submit" name="action" value="Expand">
+        </form>
+    </div>
+    <div class="col-md-5">
+        <form method="post">
+            {{ form2.csrf_token }}
+            <input class="btn btn-danger" type="submit" name="action" value="Collapse">
+        </form>
+    </div>
+</div>
+<div class="row">
+    {{ raw_data_table | safe}}
+</div>
+{% endblock %}

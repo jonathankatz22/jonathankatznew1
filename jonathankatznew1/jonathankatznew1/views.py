@@ -43,7 +43,7 @@ from jonathankatznew1.Models.Forms import CollapseForm
 
 
 from os import path
-from flask_bootstrap import bootstrap # לא משתנה
+from flask_bootstrap import Bootstrap
 bootstrap = Bootstrap(app)
 ###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
 
@@ -131,3 +131,91 @@ def Login():
         year=datetime.now().year,
         repository_name='Pandas',
         )
+@app.route('/Data')
+def Data():
+    """Renders the Data page."""
+    return render_template(
+        'Data.html',
+        title='Data',
+        year=datetime.now().year,
+        message='Your Data page.'
+    )
+
+@app.route('/data/deaths' , methods = ['GET' , 'POST'])
+def deaths():
+
+    """Renders the about page."""
+    form1 = ExpandForm()
+    form2 = CollapseForm()
+    # df = pd.read_csv(path.join(path.dirname(__file__), 'static\\data\\deaths.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/deaths.csv'))
+    raw_data_table = ''
+
+    if request.method == 'POST':
+        if request.form['action'] == 'Expand' and form1.validate_on_submit():
+            raw_data_table = df.to_html(classes = 'table table-hover')
+        if request.form['action'] == 'Collapse' and form2.validate_on_submit():
+            raw_data_table = ''
+
+    
+    return render_template(
+        'deaths.html',  
+        title='Deaths',
+        year=datetime.now().year,
+        message='Death Cases dataset page.',
+        raw_data_table = raw_data_table,
+        form1 = form1,
+        form2 = form2
+    )
+
+@app.route('/data/Open' , methods = ['GET' , 'POST'])
+def Open():
+
+    """Renders the about page."""
+    form1 = ExpandForm()
+    form2 = CollapseForm()
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/Open.csv'))
+    raw_data_table = ''
+
+    if request.method == 'POST':
+        if request.form['action'] == 'Expand' and form1.validate_on_submit():
+            raw_data_table = df.to_html(classes = 'table table-hover')
+        if request.form['action'] == 'Collapse' and form2.validate_on_submit():
+            raw_data_table = ''
+
+    
+    return render_template(
+        'Open.html',
+        title='Open Cases',
+        year=datetime.now().year,
+        message='Open Cases dataset page.',
+        raw_data_table = raw_data_table,
+        form1 = form1,
+        form2 = form2
+    )
+
+@app.route('/data/Recovery' , methods = ['GET' , 'POST'])
+def Recovery():
+
+    """Renders the about page."""
+    form1 = ExpandForm()
+    form2 = CollapseForm()
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/Recovery.csv'))
+    raw_data_table = ''
+
+    if request.method == 'POST':
+        if request.form['action'] == 'Expand' and form1.validate_on_submit():
+            raw_data_table = df.to_html(classes = 'table table-hover')
+        if request.form['action'] == 'Collapse' and form2.validate_on_submit():
+            raw_data_table = ''
+
+    
+    return render_template(
+        'Recovery.html',
+        title='recovery',
+        year=datetime.now().year,
+        message='recovery Cases dataset page.',
+        raw_data_table = raw_data_table,
+        form1 = form1,
+        form2 = form2
+    )
