@@ -194,13 +194,13 @@ def Open():
         form2 = form2
     )
 
-@app.route('/data/Recovery' , methods = ['GET' , 'POST'])
-def Recovery():
+@app.route('/data/Recovered' , methods = ['GET' , 'POST'])
+def Recovered():
 
     """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/Recovery.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/Recovered.csv'))
     raw_data_table = ''
 
     if request.method == 'POST':
@@ -211,10 +211,10 @@ def Recovery():
 
     
     return render_template(
-        'Recovery.html',
-        title='recovery',
+        'Recovered.html',
+        title='Recovered',
         year=datetime.now().year,
-        message='recovery Cases dataset page.',
+        message='Recovered Cases dataset page.',
         raw_data_table = raw_data_table,
         form1 = form1,
         form2 = form2

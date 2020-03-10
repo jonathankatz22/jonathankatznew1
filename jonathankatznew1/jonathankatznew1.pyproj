@@ -49,7 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="jonathankatznew1\static\Data\deaths.csv" />
-    <Content Include="jonathankatznew1\templates\Recovery.html" />
+    <Content Include="jonathankatznew1\static\Data\Open.csv" />
+    <Content Include="jonathankatznew1\static\Data\recovered.csv" />
+    <Content Include="jonathankatznew1\static\Data\users.csv" />
+    <Content Include="jonathankatznew1\templates\Recovered.html" />
     <Content Include="jonathankatznew1\templates\register.html" />
     <Content Include="jonathankatznew1\templates\login.html" />
     <Content Include="..\..\..\..\Desktop\requirements.txt">
