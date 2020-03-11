@@ -168,13 +168,13 @@ def deaths():
         form2 = form2
     )
 
-@app.route('/data/Open' , methods = ['GET' , 'POST'])
-def Open():
+@app.route('/data/summary' , methods = ['GET' , 'POST'])
+def summary():
 
     """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/Open.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/summary.csv'))
     raw_data_table = ''
 
     if request.method == 'POST':
@@ -185,10 +185,10 @@ def Open():
 
     
     return render_template(
-        'Open.html',
-        title='Open Cases',
+        'summary.html',
+        title='summary Cases',
         year=datetime.now().year,
-        message='Open Cases dataset page.',
+        message='summary Cases dataset page.',
         raw_data_table = raw_data_table,
         form1 = form1,
         form2 = form2
