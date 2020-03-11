@@ -7,21 +7,21 @@
 
 
 <div class="row">
-    <div class="col-md-3">Province/State</div>
-    <div class="col-md-9">The Province/State</div>
+    <table class="table table-bordered">
+        <tr>
+            <td>Province/State</td>
+            <td>Province/State</td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td>The country</td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td>The number of recovered people on a given date in a given province/state and country</td>
+        </tr>
+        </table>
 </div>
-<p></p>
-<div class="row">
-    <div class="col-md-3">Country</div>
-    <div class="col-md-9">The country</div>
-</div>
-<p></p>
-<div class="row">
-    <div class="col-md-3">Date</div>
-    <div class="col-md-9">The number of recovered people on a given date in a given province/state and country</div>
-</div>
-<p></p>
-
 <div class="row">
     <div class="col-md-5">
         <form method="post">
@@ -39,4 +39,6 @@
 <div class="row">
     {{ raw_data_table | safe}}
 </div>
+
+
 {% endblock %}

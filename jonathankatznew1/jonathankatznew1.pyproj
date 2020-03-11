@@ -44,6 +44,7 @@
     <Folder Include="jonathankatznew1\static\content\" />
     <Folder Include="jonathankatznew1\static\fonts\" />
     <Folder Include="jonathankatznew1\static\Data\" />
+    <Folder Include="jonathankatznew1\static\imgs\" />
     <Folder Include="jonathankatznew1\static\scripts\" />
     <Folder Include="jonathankatznew1\templates\" />
   </ItemGroup>
@@ -53,6 +54,10 @@
     <Content Include="jonathankatznew1\static\Data\recovered.csv" />
     <Content Include="jonathankatznew1\static\Data\summary.csv" />
     <Content Include="jonathankatznew1\static\Data\users.csv" />
+    <Content Include="jonathankatznew1\static\imgs\coronavirus.png" />
+    <Content Include="jonathankatznew1\static\imgs\coronavirus2.jpg" />
+    <Content Include="jonathankatznew1\static\imgs\coronavirus3.jpg" />
+    <Content Include="jonathankatznew1\static\imgs\JonathanKatz %283%29.jpg" />
     <Content Include="jonathankatznew1\templates\Recovered.html" />
     <Content Include="jonathankatznew1\templates\register.html" />
     <Content Include="jonathankatznew1\templates\login.html" />
