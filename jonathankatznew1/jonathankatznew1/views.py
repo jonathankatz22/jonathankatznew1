@@ -31,11 +31,16 @@ from flask   import Flask, render_template, flash, request
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from wtforms import TextField, TextAreaField, SubmitField, SelectField, DateField
 from wtforms import ValidationError
+import base64
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 
 from jonathankatznew1.Models.QueryFormStructure import QueryFormStructure 
 from jonathankatznew1.Models.QueryFormStructure import LoginFormStructure 
 from jonathankatznew1.Models.QueryFormStructure import UserRegistrationFormStructure 
+from jonathankatznew1.Models.QueryFormStructure import Covid19 
+
 
 from jonathankatznew1.Models.Forms import ExpandForm
 from jonathankatznew1.Models.Forms import CollapseForm
@@ -219,3 +224,49 @@ def Recovered():
         form1 = form1,
         form2 = form2
     )
+@app.route('/dataquery' , methods = ['GET' , 'POST'])
+def dataquery():
+
+    
+
+    form1 = Covid19()
+    chart = ''
+
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/time_series_covid19_confirmed_global.csv'))
+    df = df.drop(['Lat' , 'Long' , 'Province/State'], 1)
+    df = df.rename(columns={'Country/Region': 'Country'})
+    df = df.groupby('Country').sum()
+    l = df.index
+    m = list(zip(l , l))
+
+   
+    form1.countries.choices = m       
+   
+    
+
+    if request.method == 'POST':
+        countries = form1.countries.data 
+        start_date = form1.start_date.data
+        end_date = form1.end_date.data
+        df = df.loc[countries]
+        df = df.transpose()
+        df.index = pd.to_datetime(df.index)
+        df=df[start_date:end_date]
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        df.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
+        chart = plot_to_img(fig)
+
+    
+    return render_template(
+        'dataquery.html',
+        form1 = form1,
+        chart = chart
+        
+    )
+def plot_to_img(fig):
+    pngImage = io.BytesIO()
+    FigureCanvas(fig).print_png(pngImage)
+    pngImageB64String = "data:image/png;base64,"
+    pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
+    return pngImageB64String

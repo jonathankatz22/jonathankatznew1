@@ -7,8 +7,9 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms import Form, BooleanField, PasswordField
-from wtforms import TextField, TextAreaField, SelectField, DateField
+from wtforms import TextField, TextAreaField, SelectField, DateField,SelectMultipleField
 from wtforms import validators, ValidationError
+from wtforms.fields.html5 import DateField
 
 from wtforms.validators import DataRequired
 ### ----------------------------------------------------------- ###
@@ -75,6 +76,12 @@ class UserRegistrationFormStructure(FlaskForm):
 #class DataParametersFormStructure(FlaskForm):
 #    
 #    submit = SubmitField('Submit')
+class Covid19(FlaskForm):
+    countries = SelectMultipleField('Select Multiple:' , validators = [DataRequired] )
+    start_date = DateField('Start Date (1/22/20 onwards):' , format='%Y-%m-%d' , validators = [DataRequired])
+    end_date = DateField('End Date (Yesterday backwards):' , format='%Y-%m-%d' , validators = [DataRequired])
+    submit = SubmitField('submit')
+
 
 
 
