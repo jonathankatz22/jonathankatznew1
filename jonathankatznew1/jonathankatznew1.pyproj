@@ -49,6 +49,7 @@
     <Folder Include="jonathankatznew1\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="jonathankatznew1\static\Data\confirmed.csv" />
     <Content Include="jonathankatznew1\static\Data\deaths.csv" />
     <Content Include="jonathankatznew1\static\Data\Open.csv" />
     <Content Include="jonathankatznew1\static\Data\recovered.csv" />
@@ -59,7 +60,7 @@
     <Content Include="jonathankatznew1\static\imgs\coronavirus2.jpg" />
     <Content Include="jonathankatznew1\static\imgs\coronavirus3.jpg" />
     <Content Include="jonathankatznew1\static\imgs\JonathanKatz %283%29.jpg" />
-    <Content Include="jonathankatznew1\templates\Recovered.html" />
+    <Content Include="jonathankatznew1\templates\confirmed.html" />
     <Content Include="jonathankatznew1\templates\register.html" />
     <Content Include="jonathankatznew1\templates\login.html" />
     <Content Include="..\..\..\..\Desktop\requirements.txt">
@@ -93,7 +94,7 @@
     <Content Include="jonathankatznew1\templates\layout.html" />
     <Content Include="jonathankatznew1\templates\Data.html" />
     <Content Include="jonathankatznew1\templates\deaths.html" />
-    <Content Include="jonathankatznew1\templates\summary.html" />
+    <Content Include="jonathankatznew1\templates\recovered.html" />
     <Content Include="jonathankatznew1\templates\dataquery.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />

@@ -173,13 +173,13 @@ def deaths():
         form2 = form2
     )
 
-@app.route('/data/summary' , methods = ['GET' , 'POST'])
-def summary():
+@app.route('/data/recovered' , methods = ['GET' , 'POST'])
+def recovered():
 
     """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/summary.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
     raw_data_table = ''
 
     if request.method == 'POST':
@@ -190,22 +190,22 @@ def summary():
 
     
     return render_template(
-        'summary.html',
-        title='summary Cases',
+        'recovered.html',
+        title='recovered Cases',
         year=datetime.now().year,
-        message='summary Cases dataset page.',
+        message='recovered Cases dataset page.',
         raw_data_table = raw_data_table,
         form1 = form1,
         form2 = form2
     )
 
-@app.route('/data/Recovered' , methods = ['GET' , 'POST'])
-def Recovered():
+@app.route('/data/confirmed' , methods = ['GET' , 'POST'])
+def confirmed():
 
     """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/Recovered.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
     raw_data_table = ''
 
     if request.method == 'POST':
@@ -216,10 +216,10 @@ def Recovered():
 
     
     return render_template(
-        'Recovered.html',
-        title='Recovered',
+        'confirmed.html',
+        title='confirmed',
         year=datetime.now().year,
-        message='Recovered Cases dataset page.',
+        message='confirmed Cases dataset page.',
         raw_data_table = raw_data_table,
         form1 = form1,
         form2 = form2

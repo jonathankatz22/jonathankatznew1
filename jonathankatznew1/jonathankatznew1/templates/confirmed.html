@@ -1,0 +1,44 @@
+﻿{% extends "layout.html" %}
+
+
+{% block content %}
+
+<h2>Corona virus recovery ratio is an area of great interest for the world health orgnaization, governments and world population in light of the great conncern from the fatality of the Coronoa virus. These try to assess the recovery chances of infected indivduals.</h2>
+
+
+<div class="row">
+    <table class="table table-bordered">
+        <tr>
+            <td>Province/State</td>
+            <td>Province/State</td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td>The country</td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td>The number of recovered people on a given date in a given province/state and country</td>
+        </tr>
+        </table>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <form method="post">
+            {{ form1.csrf_token }}
+            <input class="btn btn-success" type="submit" name="action" value="Expand">
+        </form>
+    </div>
+    <div class="col-md-5">
+        <form method="post">
+            {{ form2.csrf_token }}
+            <input class="btn btn-danger" type="submit" name="action" value="Collapse">
+        </form>
+    </div>
+</div>
+<div class="row">
+    {{ raw_data_table | safe}}
+</div>
+
+
+{% endblock %}

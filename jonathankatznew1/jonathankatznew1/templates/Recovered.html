@@ -3,11 +3,18 @@
 
 {% block content %}
 
-<h2>Corona virus recovery ratio is an area of great interest for the world health orgnaization, governments and world population in light of the great conncern from the fatality of the Coronoa virus. These try to assess the recovery chances of infected indivduals.</h2>
-
+<h2>This following data provides a summary of the tracked death, recovery and confirmed Corona virus cases. </h2>
 
 <div class="row">
     <table class="table table-bordered">
+        <tr>
+            <td>SNo</td>
+            <td>Serial Number</td>
+        </tr>
+        <tr>
+            <td>ObservationDate</td>
+            <td>The date when new data measured</td>
+        </tr>
         <tr>
             <td>Province/State</td>
             <td>Province/State</td>
@@ -17,11 +24,26 @@
             <td>The country</td>
         </tr>
         <tr>
-            <td>Date</td>
-            <td>The number of recovered people on a given date in a given province/state and country</td>
+            <td>Last Update</td>
+            <td>Date and time of last update</td>
         </tr>
-        </table>
+        <tr>
+            <td>Confirmed</td>
+            <td>The number of new confirmed Corona cases at the given observation date</td>
+        </tr>
+        <tr>
+            <td>Deaths</td>
+            <td>The number of new death Corona cases at the given observation date</td>
+        </tr>
+        <tr>
+            <td>Recovered</td>
+            <td>The number of new recovered Corona cases at the given observation date</td>
+        </tr>
+    </table>
 </div>
+
+<p></p>
+
 <div class="row">
     <div class="col-md-5">
         <form method="post">
@@ -39,6 +61,4 @@
 <div class="row">
     {{ raw_data_table | safe}}
 </div>
-
-
 {% endblock %}
