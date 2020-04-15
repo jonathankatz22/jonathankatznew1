@@ -51,10 +51,7 @@
   <ItemGroup>
     <Content Include="jonathankatznew1\static\Data\confirmed.csv" />
     <Content Include="jonathankatznew1\static\Data\deaths.csv" />
-    <Content Include="jonathankatznew1\static\Data\Open.csv" />
     <Content Include="jonathankatznew1\static\Data\recovered.csv" />
-    <Content Include="jonathankatznew1\static\Data\summary.csv" />
-    <Content Include="jonathankatznew1\static\Data\time_series_covid19_confirmed_global.csv" />
     <Content Include="jonathankatznew1\static\Data\users.csv" />
     <Content Include="jonathankatznew1\static\imgs\coronavirus.png" />
     <Content Include="jonathankatznew1\static\imgs\coronavirus2.jpg" />

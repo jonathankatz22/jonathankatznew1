@@ -230,24 +230,35 @@ def dataquery():
     
 
     form1 = Covid19()
+    
     chart = ''
-
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/time_series_covid19_confirmed_global.csv'))
+    chart_deaths = ''
+    chart_recovered = ''
+   
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
     df = df.drop(['Lat' , 'Long' , 'Province/State'], 1)
     df = df.rename(columns={'Country/Region': 'Country'})
     df = df.groupby('Country').sum()
     l = df.index
     m = list(zip(l , l))
 
-   
     form1.countries.choices = m       
-   
-    
+  
+    df_deaths = pd.read_csv(path.join(path.dirname(__file__), 'static/data/deaths.csv'))
+    df_deaths = df_deaths.drop(['Lat' , 'Long' , 'Province/State'], 1)
+    df_deaths = df_deaths.rename(columns={'Country/Region': 'Country'})
+    df_deaths = df_deaths.groupby('Country').sum()
+
+    df_recovered = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
+    df_recovered = df_recovered.drop(['Lat' , 'Long' , 'Province/State'], 1)
+    df_recovered = df_recovered.rename(columns={'Country/Region': 'Country'})
+    df_recovered = df_recovered.groupby('Country').sum()
 
     if request.method == 'POST':
         countries = form1.countries.data 
         start_date = form1.start_date.data
         end_date = form1.end_date.data
+       
         df = df.loc[countries]
         df = df.transpose()
         df.index = pd.to_datetime(df.index)
@@ -257,11 +268,34 @@ def dataquery():
         df.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart = plot_to_img(fig)
 
-    
+       
+        df_deaths = df_deaths.loc[countries]
+        df_deaths = df_deaths.transpose()
+        df_deaths.index = pd.to_datetime(df_deaths.index)
+        df_deaths=df_deaths[start_date:end_date]
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        df_deaths.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
+        chart_deaths = plot_to_img(fig)
+
+
+        df_recovered = df_recovered.loc[countries]
+        df_recovered = df_recovered.transpose()
+        df_recovered.index = pd.to_datetime(df_recovered.index)
+        df_recovered = df_recovered[start_date:end_date]
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        df_recovered.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
+        chart_recovered = plot_to_img(fig)
+
+
     return render_template(
         'dataquery.html',
         form1 = form1,
-        chart = chart
+        chart = chart,
+        chart_deaths = chart_deaths,
+        chart_recovered = chart_recovered
+
         
     )
 def plot_to_img(fig):

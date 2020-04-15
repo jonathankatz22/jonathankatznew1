@@ -23,8 +23,8 @@ from wtforms.validators import DataRequired
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class QueryFormStructure(FlaskForm):
-    name   = StringField('user Name:  ' , validators = [DataRequired("you must write a username")])
-    password   = StringField('pass word:  ' , validators = [DataRequired("you must write a password")])
+    name   = StringField('Userמame:  ' , validators = [DataRequired("you must write a username")])
+    password   = StringField('Password:  ' , validators = [DataRequired("you must write a password")])
     submit = SubmitField('Submit')
 
 
@@ -39,8 +39,8 @@ class QueryFormStructure(FlaskForm):
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class LoginFormStructure(FlaskForm):
-    username   = StringField('User name:  ' , validators = [DataRequired()])
-    password   = PasswordField('Pass word:  ' , validators = [DataRequired()])
+    username   = StringField('Username:  ' , validators = [DataRequired()])
+    password   = PasswordField('Password:  ' , validators = [DataRequired()])
     submit = SubmitField('Submit')
 
 
