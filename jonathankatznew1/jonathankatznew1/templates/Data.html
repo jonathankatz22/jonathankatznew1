@@ -19,23 +19,24 @@
     </tr>
 </table>
 <h1></h1>
+
+<div class="row">
+    <div class="col-md-3">Confirmed Cases</div>
+    <div class="col-md-6">This dataset deals with the confirmed cases from COVID-19</div>
+    <div class="col-md-3"><a href="{{ url_for('confirmed') }}">Confirmed Cases Dataset</a></div>
+</div>
+<p></p>
 <p></p>
 <div class="row">
     <div class="col-md-3">Death Cases</div>
     <div class="col-md-6">This dataset deals with the death cases from COVID-19</div>
-    <div class="col-md-3"><a href="{{ url_for('deaths') }}">Death Dataset</a></div>
-</div>
-<p></p>
-<div class="row">
-    <div class="col-md-3">Confirmed Cases</div>
-    <div class="col-md-6">This dataset deals with the recovery cases from COVID-19</div>
-    <div class="col-md-3"><a href="{{ url_for('confirmed') }}">confirmed Dataset</a></div>
+    <div class="col-md-3"><a href="{{ url_for('deaths') }}">Death Cases Dataset</a></div>
 </div>
 <p></p>
 <div class="row">
     <div class="col-md-3">Recovered</div>
-    <div class="col-md-6">This dataset is a recovered of COVID-19 cases</div>
-    <div class="col-md-3"><a href="{{ url_for('recovered') }}">Recovered Dataset</a></div>
+    <div class="col-md-6">This dataset deals with the recovered cases from COVID-19</div>
+    <div class="col-md-3"><a href="{{ url_for('recovered') }}">Recovered Cases Dataset</a></div>
 </div>
 
 {% endblock %}
