@@ -25,6 +25,8 @@ import requests
 import io
 import base64
 
+
+
 from os import path
 
 from flask   import Flask, render_template, flash, request
@@ -36,7 +38,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 
-from jonathankatznew1.Models.QueryFormStructure import QueryFormStructure 
 from jonathankatznew1.Models.QueryFormStructure import LoginFormStructure 
 from jonathankatznew1.Models.QueryFormStructure import UserRegistrationFormStructure 
 from jonathankatznew1.Models.QueryFormStructure import Covid19 
@@ -124,15 +125,17 @@ def Login():
 
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
-            flash('Login approved!')
+            #flash('Login approved!')
             #return redirect('<were to go if login is good!')
+             return redirect('/dataquery')
+
         else:
             flash('Error in - Username and/or password')
    
     return render_template(
         'login.html', 
         form=form, 
-        title='Login to data analysis',
+        title='Login to Data Analysis',
         year=datetime.now().year,
         repository_name='Pandas',
         )
@@ -152,9 +155,11 @@ def deaths():
     """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
-    # df = pd.read_csv(path.join(path.dirname(__file__), 'static\\data\\deaths.csv'))
+
     df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/deaths.csv'))
+    df = pd.concat([df.head(10),df.tail(10)])
     raw_data_table = ''
+    
 
     if request.method == 'POST':
         if request.form['action'] == 'Expand' and form1.validate_on_submit():
@@ -180,6 +185,7 @@ def recovered():
     form1 = ExpandForm()
     form2 = CollapseForm()
     df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
+    df = pd.concat([df.head(10),df.tail(10)])
     raw_data_table = ''
 
     if request.method == 'POST':
@@ -206,6 +212,7 @@ def confirmed():
     form1 = ExpandForm()
     form2 = CollapseForm()
     df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
+    df = pd.concat([df.head(10),df.tail(10)])
     raw_data_table = ''
 
     if request.method == 'POST':
@@ -235,6 +242,8 @@ def dataquery():
     chart_deaths = ''
     chart_recovered = ''
    
+    plt.rc('legend',fontsize=22)
+
     df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
     df = df.drop(['Lat' , 'Long' , 'Province/State'], 1)
     df = df.rename(columns={'Country/Region': 'Country'})

@@ -2,29 +2,20 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
+<h1>COVID-19 Cases Data Queries</></h1>
+<br />
 
+<div class="row" style="font-size: 16px;">
+    <div class="col-md-7">The following queries result with a graphical presenation of the number of confirmed, deaths and recovery cases of Corona virus in the selected period of time and county or countries.</div>
+</div>
+<div class="row" style="font-size: 16px;">
+    <div class="col-md-7"> Data source: <a href="https://data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases" target="_blank">Humanitarian Data Exchange (HDX)</a></div>
+</div>
+<div class="row" style="font-size: 16px;">
+    <div class="col-md-7"> Last update on this page: 08/05/2020</div>
+</div>
 
-
-
-
-
-    
-    
-        <h1><strong>COVID-19 Cases Data Queries</strong></h1>
-        <h4>The following queries result with a graphical presenation of the number of confirmed, deaths and recovery cases of Corona virus  in the selected period of time and county or countries. </h4>
-        <br />
-        <h4>Data source: <a href="https://data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases">Humanitarian Data Exchange (HDX)</a></h4>
-        <h4>Last update on this page: 19th April, 2020</h4>
-        <br />
-    
-    <div class="col-md-4">
-        <div class="col-md-4">
-        </div>
-    </div>
-
-
-<hr />
-
+<br /><br />
 
 <div class="row">
 
@@ -52,11 +43,7 @@
     <img src={{ chart_recovered }} class="img-thumbnail" alt="not found">
 </div>
 
-
-<hr />
-
+<br />
 
 
-<hr />
-
-    {% endblock %}
+     {% endblock %}

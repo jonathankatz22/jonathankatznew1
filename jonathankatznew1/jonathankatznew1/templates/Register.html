@@ -2,7 +2,8 @@
 
 {% block content %}
 
-<h2>{{ title }}</h2>
+<h1> {{ title }} </h1>
+
 
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -13,9 +14,7 @@
 {% endif %}
 {% endwith %}
 
-<br />
-<br />
-<br />
+<br /><br /><br />
 
 <form method=post>
     {{ form.csrf }}
@@ -114,11 +113,6 @@
 <style>
     td, tr, table {
         font-size: 22px
-    }
-
-    h2 {
-        position: relative;
-        left: 450px;
     }
 </style>
     {% endblock %}

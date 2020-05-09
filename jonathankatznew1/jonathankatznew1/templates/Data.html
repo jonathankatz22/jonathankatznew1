@@ -2,38 +2,37 @@
 
 {% block content %}
 
-<h1><strong>Corona Virus Datasets</strong></h1>
+<h1>Corona Virus Datasets</></h1>
 
-<h3>
+<p style="font-size: 16px;">
     Coronaviruses (CoV) are a large family of viruses that cause illness ranging from the common cold to more severe diseases such as Middle East Respiratory Syndrome (MERS-CoV) and Severe Acute Respiratory Syndrome (SARS-CoV). A novel coronavirus (nCoV) known also as COVID-19 is a new strain that has not been previously identified in humans.
-    Common signs of infection include respiratory symptoms, fever, cough, shortness of breath and breathing difficulties. In more severe cases, infection can cause pneumonia, severe acute respiratory syndrome, kidney failure and even death.
-    .
-</h3>
+    Common signs of infection include respiratory symptoms, fever, cough, shortness of breath and breathing difficulties. <br />
+    In more severe cases, infection can cause pneumonia, severe acute respiratory syndrome, kidney failure and even death.
+</p>
 
 <table style="width:100%">
     <tr>
-        <td><img src="https://d2v9ipibika81v.cloudfront.net/uploads/sites/33/corona-virus-2019.jpg" style="width: 200px; height: 200px" alt="corona virus photo"></td>
-        <td><img src="https://www.gannett-cdn.com/presto/2020/01/28/USAT/03afcf53-4098-444d-8dfe-7434cf769971-012120-Coronavirus-SARS-MERS_Online.png" style="width: 200px; height: 200px" alt="corona virus photo"></td>
-        <td><img src="https://www.rtmagazine.com/wp-content/uploads/2020/01/virus-china-2k.jpg" style="width: 200px; height: 200px" alt="corona virus photo"></td>
-        <td><img src="https://www.pharmaceutical-journal.com/Pictures/280xAny/7/0/2/1079702_reduce-risk-of-coronavirus-infection.jpg" style="width: 200px; height: 200px" alt="corona virus photo"></td>
+        <td><img src="https://d2v9ipibika81v.cloudfront.net/uploads/sites/33/corona-virus-2019.jpg" style="width: 200px; height: 200px" alt="corona virus photo1"></td>
+        <td><img src="https://www.gannett-cdn.com/presto/2020/01/28/USAT/03afcf53-4098-444d-8dfe-7434cf769971-012120-Coronavirus-SARS-MERS_Online.png" style="width: 200px; height: 200px" alt="corona virus photo2"></td>
+        <td><img src="https://www.rtmagazine.com/wp-content/uploads/2020/01/virus-china-2k.jpg" style="width: 200px; height: 200px" alt="corona virus photo3"></td>
+        <td><img src="https://www.pharmaceutical-journal.com/Pictures/280xAny/7/0/2/1079702_reduce-risk-of-coronavirus-infection.jpg" style="width: 200px; height: 200px" alt="corona virus photo4"></td>
     </tr>
 </table>
-<h1></h1>
+<br/><br/>
 
-<div class="row">
+<div style="font-size: 16px;"class="row">
     <div class="col-md-3">Confirmed Cases</div>
     <div class="col-md-6">This dataset deals with the confirmed cases from COVID-19</div>
     <div class="col-md-3"><a href="{{ url_for('confirmed') }}">Confirmed Cases Dataset</a></div>
 </div>
-<p></p>
-<p></p>
-<div class="row">
+<br />
+<div style="font-size: 16px;" class="row">
     <div class="col-md-3">Death Cases</div>
     <div class="col-md-6">This dataset deals with the death cases from COVID-19</div>
     <div class="col-md-3"><a href="{{ url_for('deaths') }}">Death Cases Dataset</a></div>
 </div>
-<p></p>
-<div class="row">
+<br />
+<div style="font-size: 16px;" class="row">
     <div class="col-md-3">Recovered Cases</div>
     <div class="col-md-6">This dataset deals with the recovered cases from COVID-19</div>
     <div class="col-md-3"><a href="{{ url_for('recovered') }}">Recovered Cases Dataset</a></div>

@@ -12,24 +12,8 @@ from wtforms import validators, ValidationError
 from wtforms.fields.html5 import DateField
 
 from wtforms.validators import DataRequired
+
 ### ----------------------------------------------------------- ###
-
-
-
-
-## This class have the fields that are part of the Country-Capital demonstration
-## You can see two fields:
-##   the 'name' field - will be used to get the country name
-##   the 'submit' button - the button the user will press to have the 
-##                         form be "posted" (sent to the server for process)
-class QueryFormStructure(FlaskForm):
-    name   = StringField('Userמame:  ' , validators = [DataRequired("you must write a username")])
-    password   = StringField('Password:  ' , validators = [DataRequired("you must write a password")])
-    submit = SubmitField('Submit')
-
-
-
-
 ## This class have the fields that are part of the Login form.
 ##   This form will get from the user a 'username' and a 'password' and sent to the server
 ##   to check if this user is authorised to continue
@@ -37,7 +21,8 @@ class QueryFormStructure(FlaskForm):
 ##   the 'username' field - will be used to get the username
 ##   the 'password' field - will be used to get the password
 ##   the 'submit' button - the button the user will press to have the 
-##                         form be "posted" (sent to the server for process)
+##   form be "posted" (sent to the server for process)
+
 class LoginFormStructure(FlaskForm):
     username   = StringField('Username:  ' , validators = [DataRequired()])
     password   = PasswordField('Password:  ' , validators = [DataRequired()])
@@ -66,21 +51,20 @@ class UserRegistrationFormStructure(FlaskForm):
     password   = PasswordField('Password:  ' , validators = [DataRequired()])
     submit = SubmitField('Submit')
 
-## This class have the fields that the user can set, to have the query parameters for analysing the data
-##   This form is where the user can set different parameters, depand on your project,
-##   that will be used to do the data analysis (using Pandas etc.)
-## You can see three fields:
-##   The fields that will be part of this form are specific to your project
-##   Please complete this class according to your needs
+## This class has the fields that the user can set for the query of parameters 
+## for analysing the data (using Pandas etc.)
+## Following are the fields we are using (with format paramaters and validation):
+##   the Countries - selecting one or more countries with validation
+##   the Start_date - the start date for the query, format paramter and validation
+##   the end_date - the end date for the query, format paramter and validation
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
-#class DataParametersFormStructure(FlaskForm):
-#    
-#    submit = SubmitField('Submit')
+ 
+
 class Covid19(FlaskForm):
     countries = SelectMultipleField('Select one or multiple contries:' , validators = [DataRequired] )
     start_date = DateField('Start Date (From 1/22/2020 ):' , format='%Y-%m-%d' , validators = [DataRequired])
-    end_date = DateField('End Date (Until 19/04/2020):' , format='%Y-%m-%d' , validators = [DataRequired])
+    end_date = DateField('End Date (Until 08/05/2020):' , format='%Y-%m-%d' , validators = [DataRequired])
     submit = SubmitField('submit')
 
 
