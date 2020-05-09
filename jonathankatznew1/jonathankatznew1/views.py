@@ -3,7 +3,6 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
 from jonathankatznew1 import app
 from jonathankatznew1.Models.LocalDatabaseRoutines import create_LocalDatabaseServiceRoutines
 
@@ -12,7 +11,7 @@ from datetime import datetime
 from flask import render_template, redirect, request
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField
 from wtforms.validators import DataRequired
 
 import numpy as np
@@ -25,38 +24,33 @@ import requests
 import io
 import base64
 
-
-
-from os import path
-
-from flask   import Flask, render_template, flash, request
+from flask   import Flask, flash, request
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from wtforms import TextField, TextAreaField, SubmitField, SelectField, DateField
 from wtforms import ValidationError
-import base64
+ 
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
-
 
 from jonathankatznew1.Models.QueryFormStructure import LoginFormStructure 
 from jonathankatznew1.Models.QueryFormStructure import UserRegistrationFormStructure 
 from jonathankatznew1.Models.QueryFormStructure import Covid19 
 
-
 from jonathankatznew1.Models.Forms import ExpandForm
 from jonathankatznew1.Models.Forms import CollapseForm
 
-
-
 from os import path
 from flask_bootstrap import Bootstrap
+
+
 bootstrap = Bootstrap(app)
-###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
 
 db_Functions = create_LocalDatabaseServiceRoutines() 
 
 
 @app.route('/')
+
+# The home() function that renders the Home page
 @app.route('/home')
 def home():
     """Renders the home page."""
@@ -66,6 +60,7 @@ def home():
         year=datetime.now().year,
     )
 
+# The contact() function that renders the Contact page
 @app.route('/contact')
 def contact():
     """Renders the contact page."""
@@ -73,20 +68,9 @@ def contact():
         'contact.html',
         title='Contact',
         year=datetime.now().year,
-        message='Your contact page.'
     )
 
-@app.route('/datamodel')
-def datamodel():
-    """Renders the datamodel page."""
-    return render_template(
-        'datamodel.html',
-        title='datamodel',
-        year=datetime.now().year,
-        message='Your datamodel page.'
-    )
-
-
+# The about() function that renders the About page
 @app.route('/about')
 def about():
     """Renders the about page."""
@@ -94,8 +78,11 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        message='Your application description page.'
+        
     )
+# The Register() function that renders the Register page, receives from the user a form with user registration
+# details using UserRegistrationFormStrucute, checks if the user already exists (retrun error) or not (registers
+# a new user with the details provided)
 @app.route('/register', methods=['GET', 'POST'])
 def Register():
     form = UserRegistrationFormStructure(request.form)
@@ -106,7 +93,7 @@ def Register():
             db_table = ""
 
             flash('Thanks for registering new user - '+ form.FirstName.data + " " + form.LastName.data )
-            # Here you should put what to do (or were to go) if registration was good
+            
         else:
             flash('Error: User with this Username already exist ! - '+ form.username.data)
             form = UserRegistrationFormStructure(request.form)
@@ -119,14 +106,17 @@ def Register():
         repository_name='Pandas',
         )
 
+# The Login() function that renders the Login page, receives from the user a form with the login 
+# details (username and password) using LoginFormStructure, checks if the login data is correct using IsLoginGood
+# and if so redirects to the DataQuery page. If not, a login error message is displayed and the user is asked to
+# to Login again
 @app.route('/login', methods=['GET', 'POST'])
 def Login():
     form = LoginFormStructure(request.form)
 
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
-            #flash('Login approved!')
-            #return redirect('<were to go if login is good!')
+         
              return redirect('/dataquery')
 
         else:
@@ -137,22 +127,25 @@ def Login():
         form=form, 
         title='Login to Data Analysis',
         year=datetime.now().year,
-        repository_name='Pandas',
         )
+
+# The Data() function that renders the Data page which has links to the three Corona Virus Datasets (Deaths, Confirmed, Recovered)
 @app.route('/Data')
 def Data():
     """Renders the Data page."""
     return render_template(
         'Data.html',
-        title='Data',
-        year=datetime.now().year,
-        message='Your Data page.'
-    )
+          year=datetime.now().year,
+        )
+
+# The deaths() function that renders the Deaths Dataset page. The deaths() function reads the COVID-19 death cases dataset CSV file into
+# a panda dataframe. Then, the dataframe is reduced to the first 10 and last 10 rows - a total of 20 rows. The user has the option to select 
+# either Expand using form1 (show the 20 rows table in HTML) or Collapse using form2 (hide the table). The function redners the Deaths page 
+# and returns to it the presentation of raw_data_table either in Expand (20 tows table) or Collapse (empty).
 
 @app.route('/data/deaths' , methods = ['GET' , 'POST'])
 def deaths():
 
-    """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
 
@@ -170,18 +163,19 @@ def deaths():
     
     return render_template(
         'deaths.html',  
-        title='Deaths',
         year=datetime.now().year,
-        message='Death Cases dataset page.',
         raw_data_table = raw_data_table,
         form1 = form1,
         form2 = form2
     )
 
+# The recovered() function that renders the Recovered Dataset page. The recovered() function reads the COVID-19 recovered cases dataset CSV file into
+# a panda dataframe. Then, the dataframe is reduced to the first 10 and last 10 rows - a total of 20 rows. The user has the option to select 
+# either Expand using form1 (show the 20 rows table in HTML) or Collapse using form2 (hide the table). The function redners the Recovered page
+# and returns to it the presentation of raw_data_table either in Expand (20 tows table) or Collapse (empty).
 @app.route('/data/recovered' , methods = ['GET' , 'POST'])
 def recovered():
 
-    """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
     df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
@@ -197,18 +191,19 @@ def recovered():
     
     return render_template(
         'recovered.html',
-        title='recovered Cases',
         year=datetime.now().year,
-        message='recovered Cases dataset page.',
         raw_data_table = raw_data_table,
         form1 = form1,
         form2 = form2
     )
 
+# The confirmed() function that renders the Confirmed Dataset page. The confirmed() function reads the COVID-19 Confirmed cases dataset CSV file into
+# a panda dataframe. Then, the dataframe is reduced to the first 10 and last 10 rows - a total of 20 rows. The user has the option to select 
+# either Expand using form1 (show the 20 rows table in HTML) or Collapse using form2 (hide the table). The function redners the Confirmed page and
+# and returns to it the presentation of raw_data_table either in Expand (20 tows table) or Collapse (empty).
 @app.route('/data/confirmed' , methods = ['GET' , 'POST'])
 def confirmed():
 
-    """Renders the about page."""
     form1 = ExpandForm()
     form2 = CollapseForm()
     df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
@@ -224,31 +219,33 @@ def confirmed():
     
     return render_template(
         'confirmed.html',
-        title='confirmed',
         year=datetime.now().year,
-        message='confirmed Cases dataset page.',
         raw_data_table = raw_data_table,
         form1 = form1,
         form2 = form2
     )
+
+# The dataquery() function that renders the DataQuery page. The dataquery() function uses the COVID19 form that cotains start_Date,
+# end_date, miltiple_countries and submit. The function reads into 3 dataframes the 3 CSV files/datasets (confirmed, deaths, recovered)
+# The three dataframes data (df_deatha, df_confirmed, df_recovered) is organized such that all cases per country are grouped and unnecssary columns are removed/dropped. 
+# The organized dataframes are then plotted as a line graph allowing multipe graphs (one graph for every country selected using the object ax = fig.add_subplot(111))
+# The dataquery() function renders then the dataquery page and returns to it the 3 graphs (each with or more selected countries) 
 @app.route('/dataquery' , methods = ['GET' , 'POST'])
 def dataquery():
 
-    
-
     form1 = Covid19()
     
-    chart = ''
+    chart_confirmed = ''
     chart_deaths = ''
     chart_recovered = ''
    
     plt.rc('legend',fontsize=22)
 
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
-    df = df.drop(['Lat' , 'Long' , 'Province/State'], 1)
-    df = df.rename(columns={'Country/Region': 'Country'})
-    df = df.groupby('Country').sum()
-    l = df.index
+    df_confirmed = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
+    df_confirmed = df_confirmed.drop(['Lat' , 'Long' , 'Province/State'], 1)
+    df_confirmed = df_confirmed.rename(columns={'Country/Region': 'Country'})
+    df_confirmed = df_confirmed.groupby('Country').sum()
+    l = df_confirmed.index
     m = list(zip(l , l))
 
     form1.countries.choices = m       
@@ -268,14 +265,14 @@ def dataquery():
         start_date = form1.start_date.data
         end_date = form1.end_date.data
        
-        df = df.loc[countries]
-        df = df.transpose()
-        df.index = pd.to_datetime(df.index)
-        df=df[start_date:end_date]
+        df_confirmed = df_confirmed.loc[countries]
+        df_confirmed = df_confirmed.transpose()
+        df_confirmed.index = pd.to_datetime(df_confirmed.index)
+        df_confirmed=df_confirmed[start_date:end_date]
         fig = plt.figure()
         ax = fig.add_subplot(111)
-        df.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
-        chart = plot_to_img(fig)
+        df_confirmed.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
+        chart_confirmed = plot_to_img(fig)
 
        
         df_deaths = df_deaths.loc[countries]
@@ -300,13 +297,15 @@ def dataquery():
 
     return render_template(
         'dataquery.html',
+        year=datetime.now().year,
         form1 = form1,
-        chart = chart,
+        chart_confirmed = chart_confirmed,
         chart_deaths = chart_deaths,
         chart_recovered = chart_recovered
 
         
     )
+
 def plot_to_img(fig):
     pngImage = io.BytesIO()
     FigureCanvas(fig).print_png(pngImage)
