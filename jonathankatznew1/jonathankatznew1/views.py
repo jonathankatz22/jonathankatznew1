@@ -43,17 +43,14 @@ from os import path
 from flask_bootstrap import Bootstrap
 
 
-bootstrap = Bootstrap(app)
+bootstrap = Bootstrap(app) #start bootstrap suppurt
 
-db_Functions = create_LocalDatabaseServiceRoutines() 
-
-
-@app.route('/')
+db_Functions = create_LocalDatabaseServiceRoutines() #create a conection to the service routines
 
 # The home() function that renders the Home page
+@app.route('/')
 @app.route('/home')
 def home():
-    """Renders the home page."""
     return render_template(
         'index.html',
         title='Home Page',
@@ -63,7 +60,6 @@ def home():
 # The contact() function that renders the Contact page
 @app.route('/contact')
 def contact():
-    """Renders the contact page."""
     return render_template(
         'contact.html',
         title='Contact',
@@ -78,8 +74,8 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        
     )
+
 # The Register() function that renders the Register page, receives from the user a form with user registration
 # details using UserRegistrationFormStrucute, checks if the user already exists (retrun error) or not (registers
 # a new user with the details provided)
@@ -250,17 +246,8 @@ def dataquery():
 
     form1.countries.choices = m       
   
-    df_deaths = pd.read_csv(path.join(path.dirname(__file__), 'static/data/deaths.csv'))
-    df_deaths = df_deaths.drop(['Lat' , 'Long' , 'Province/State'], 1)
-    df_deaths = df_deaths.rename(columns={'Country/Region': 'Country'})
-    df_deaths = df_deaths.groupby('Country').sum()
-
-    df_recovered = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
-    df_recovered = df_recovered.drop(['Lat' , 'Long' , 'Province/State'], 1)
-    df_recovered = df_recovered.rename(columns={'Country/Region': 'Country'})
-    df_recovered = df_recovered.groupby('Country').sum()
-
-    if request.method == 'POST':
+    
+    if (request.method == 'POST'):
         countries = form1.countries.data 
         start_date = form1.start_date.data
         end_date = form1.end_date.data
@@ -274,7 +261,12 @@ def dataquery():
         df_confirmed.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart_confirmed = plot_to_img(fig)
 
-       
+
+        #להסביר את השורות
+        df_deaths = pd.read_csv(path.join(path.dirname(__file__), 'static/data/deaths.csv'))
+        df_deaths = df_deaths.drop(['Lat' , 'Long' , 'Province/State'], 1)
+        df_deaths = df_deaths.rename(columns={'Country/Region': 'Country'})
+        df_deaths = df_deaths.groupby('Country').sum()
         df_deaths = df_deaths.loc[countries]
         df_deaths = df_deaths.transpose()
         df_deaths.index = pd.to_datetime(df_deaths.index)
@@ -283,8 +275,12 @@ def dataquery():
         ax = fig.add_subplot(111)
         df_deaths.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart_deaths = plot_to_img(fig)
-
-
+        
+        #להסביר את השורות
+        df_recovered = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
+        df_recovered = df_recovered.drop(['Lat' , 'Long' , 'Province/State'], 1)
+        df_recovered = df_recovered.rename(columns={'Country/Region': 'Country'})
+        df_recovered = df_recovered.groupby('Country').sum()
         df_recovered = df_recovered.loc[countries]
         df_recovered = df_recovered.transpose()
         df_recovered.index = pd.to_datetime(df_recovered.index)
