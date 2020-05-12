@@ -229,7 +229,8 @@ def confirmed():
 @app.route('/dataquery' , methods = ['GET' , 'POST'])
 def dataquery():
 
-    form1 = Covid19()
+    ## setting def
+    form1 = Covid19(start_date = pd.Timestamp("2020-01-22"),end_date = pd.Timestamp("2020-05-08"))
     
     chart_confirmed = ''
     chart_deaths = ''
@@ -244,7 +245,9 @@ def dataquery():
     l = df_confirmed.index
     m = list(zip(l , l))
 
-    form1.countries.choices = m       
+    form1.countries.choices = m    
+    
+       
   
     
     if (request.method == 'POST'):

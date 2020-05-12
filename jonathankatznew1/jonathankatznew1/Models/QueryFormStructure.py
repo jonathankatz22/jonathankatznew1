@@ -63,7 +63,7 @@ class UserRegistrationFormStructure(FlaskForm):
 
 class Covid19(FlaskForm):
     countries = SelectMultipleField('Select one or multiple contries:' , validators = [DataRequired] )
-    start_date = DateField('Start Date (From 1/22/2020 ):' , format='%Y-%m-%d' , validators = [DataRequired])
+    start_date = DateField('Start Date (From 22/01/2020 ):' , format='%Y-%m-%d' , validators = [DataRequired])
     end_date = DateField('End Date (Until 08/05/2020):' , format='%Y-%m-%d' , validators = [DataRequired])
     submit = SubmitField('submit')
 
