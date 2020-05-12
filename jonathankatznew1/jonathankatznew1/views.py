@@ -69,7 +69,6 @@ def contact():
 # The about() function that renders the About page
 @app.route('/about')
 def about():
-    """Renders the about page."""
     return render_template(
         'about.html',
         title='About',
@@ -128,7 +127,6 @@ def Login():
 # The Data() function that renders the Data page which has links to the three Corona Virus Datasets (Deaths, Confirmed, Recovered)
 @app.route('/Data')
 def Data():
-    """Renders the Data page."""
     return render_template(
         'Data.html',
           year=datetime.now().year,
@@ -229,32 +227,37 @@ def confirmed():
 @app.route('/dataquery' , methods = ['GET' , 'POST'])
 def dataquery():
 
-    ## setting def
+    ## setting default values to start_date & end_date
     form1 = Covid19(start_date = pd.Timestamp("2020-01-22"),end_date = pd.Timestamp("2020-05-08"))
     
     chart_confirmed = ''
     chart_deaths = ''
     chart_recovered = ''
    
+    ## setting font size for graph legend (countries name)
     plt.rc('legend',fontsize=22)
 
+    ## The function reads into the df_confirmed dataframe the confirmed CSV files/dataset)
+    ## The dataframe data (df_confirmed) is organized such that all cases per country are grouped and unnecssary
+    ##  columns such as Lat, Long, Provice/State are removed/dropped and the total number cases per country is summed
+    ##  Then from the list of countries in the df_confirmed dataframe we build the list of countries for user's choice
     df_confirmed = pd.read_csv(path.join(path.dirname(__file__), 'static/data/confirmed.csv'))
     df_confirmed = df_confirmed.drop(['Lat' , 'Long' , 'Province/State'], 1)
     df_confirmed = df_confirmed.rename(columns={'Country/Region': 'Country'})
     df_confirmed = df_confirmed.groupby('Country').sum()
     l = df_confirmed.index
     m = list(zip(l , l))
-
     form1.countries.choices = m    
-    
-       
-  
     
     if (request.method == 'POST'):
         countries = form1.countries.data 
         start_date = form1.start_date.data
         end_date = form1.end_date.data
        
+        ## df_confimed is updated to contain a subset of the original df_comnfimred dataframe which includes the data
+        ##  for the selected countries and with data between start_date & end_date
+        ## Graph for every selected country is created using fig.add.subplot(111) and an image of that is created
+        ## to be rerunred from the function as image for presenation
         df_confirmed = df_confirmed.loc[countries]
         df_confirmed = df_confirmed.transpose()
         df_confirmed.index = pd.to_datetime(df_confirmed.index)
@@ -264,8 +267,7 @@ def dataquery():
         df_confirmed.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart_confirmed = plot_to_img(fig)
 
-
-        #להסביר את השורות
+        
         df_deaths = pd.read_csv(path.join(path.dirname(__file__), 'static/data/deaths.csv'))
         df_deaths = df_deaths.drop(['Lat' , 'Long' , 'Province/State'], 1)
         df_deaths = df_deaths.rename(columns={'Country/Region': 'Country'})
@@ -279,7 +281,7 @@ def dataquery():
         df_deaths.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart_deaths = plot_to_img(fig)
         
-        #להסביר את השורות
+        
         df_recovered = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
         df_recovered = df_recovered.drop(['Lat' , 'Long' , 'Province/State'], 1)
         df_recovered = df_recovered.rename(columns={'Country/Region': 'Country'})
@@ -293,7 +295,6 @@ def dataquery():
         df_recovered.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart_recovered = plot_to_img(fig)
 
-
     return render_template(
         'dataquery.html',
         year=datetime.now().year,
@@ -301,8 +302,6 @@ def dataquery():
         chart_confirmed = chart_confirmed,
         chart_deaths = chart_deaths,
         chart_recovered = chart_recovered
-
-        
     )
 
 def plot_to_img(fig):
