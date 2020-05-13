@@ -262,7 +262,7 @@ def dataquery():
         ## df_confimed is updated to contain a subset of the original df_comnfimred dataframe which includes the data
         ##  for the selected countries and with data between start_date & end_date
         ## Graph for every selected country is created using fig.add.subplot(111) and an image of that is created
-        ## to be rerunred from the function as image for presenation
+        ## to be rerunred from the function as image for presentation
         df_confirmed = df_confirmed.loc[countries]
         df_confirmed = df_confirmed.transpose()
         df_confirmed.index = pd.to_datetime(df_confirmed.index)
@@ -284,7 +284,7 @@ def dataquery():
         ## df_deaths is updated to contain a subset of the original df_deaths dataframe which includes the data
         ##  for the selected countries and with data between start_date & end_date
         ## Graph for every selected country is created using fig.add.subplot(111) and an image of that is created
-        ## to be rerunred from the function as image for presenation
+        ## to be rerunred from the function as image for presentation
         df_deaths = df_deaths.loc[countries]
         df_deaths = df_deaths.transpose()
         df_deaths.index = pd.to_datetime(df_deaths.index)
@@ -306,7 +306,7 @@ def dataquery():
         ## df_recovered is updated to contain a subset of the original df_recovered dataframe which includes the data
         ##  for the selected countries and with data between start_date & end_date
         ## Graph for every selected country is created using fig.add.subplot(111) and an image of that is created
-        ## to be rerunred from the function as image for presenation
+        ## to be rerunred from the function as image for presentation
         df_recovered = df_recovered.loc[countries]
         df_recovered = df_recovered.transpose()
         df_recovered.index = pd.to_datetime(df_recovered.index)
