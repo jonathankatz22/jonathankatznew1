@@ -4,17 +4,19 @@
 
 <h1 style="color:darkred"> {{ title }} </h1>
 
-
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
     {% for message in messages %}
 <h3>{{ message[1] }}</h3>
+
 <br />
     {% endfor %}
 {% endif %}
 {% endwith %}
 
-<br /><br /><br />
+<br />
+<br />
+<br />
 
 <form method=post>
     {{ form.csrf }}

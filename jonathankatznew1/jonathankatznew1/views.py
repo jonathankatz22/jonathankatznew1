@@ -6,12 +6,9 @@ from datetime import datetime
 from jonathankatznew1 import app
 from jonathankatznew1.Models.LocalDatabaseRoutines import create_LocalDatabaseServiceRoutines
 
-
-from datetime import datetime
-from flask import render_template, redirect, request
+from flask import render_template, redirect
 
 from flask_wtf import FlaskForm
-from wtforms import StringField
 from wtforms.validators import DataRequired
 
 import numpy as np
@@ -42,10 +39,11 @@ from jonathankatznew1.Models.Forms import CollapseForm
 from os import path
 from flask_bootstrap import Bootstrap
 
+#start bootstrap suppurt
+bootstrap = Bootstrap(app) 
 
-bootstrap = Bootstrap(app) #start bootstrap suppurt
-
-db_Functions = create_LocalDatabaseServiceRoutines() #create a conection to the service routines
+#create a conection to the service routines
+db_Functions = create_LocalDatabaseServiceRoutines() 
 
 # The home() function that renders the Home page
 @app.route('/')
@@ -99,7 +97,7 @@ def Register():
         title='Register New User',
         year=datetime.now().year,
         repository_name='Pandas',
-        )
+    )
 
 # The Login() function that renders the Login page, receives from the user a form with the login 
 # details (username and password) using LoginFormStructure, checks if the login data is correct using IsLoginGood
@@ -122,7 +120,7 @@ def Login():
         form=form, 
         title='Login to Data Analysis',
         year=datetime.now().year,
-        )
+    )
 
 # The Data() function that renders the Data page which has links to the three Corona Virus Datasets (Deaths, Confirmed, Recovered)
 @app.route('/Data')
@@ -130,7 +128,7 @@ def Data():
     return render_template(
         'Data.html',
           year=datetime.now().year,
-        )
+    )
 
 # The deaths() function that renders the Deaths Dataset page. The deaths() function reads the COVID-19 death cases dataset CSV file into
 # a panda dataframe. Then, the dataframe is reduced to the first 10 and last 10 rows - a total of 20 rows. The user has the option to select 
@@ -274,11 +272,19 @@ def dataquery():
         df_confirmed.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart_confirmed = plot_to_img(fig)
 
-        
+    ## The function reads into the df_deaths dataframe the confirmed CSV files/dataset)
+    ## The dataframe data (df_deaths) is organized such that all cases per country are grouped and unnecssary
+    ##  columns such as Lat, Long, Provice/State are removed/dropped and the total number cases per country is summed
+    ##  Then from the list of countries in the df_deaths dataframe we build the list of countries for user's choice
         df_deaths = pd.read_csv(path.join(path.dirname(__file__), 'static/data/deaths.csv'))
         df_deaths = df_deaths.drop(['Lat' , 'Long' , 'Province/State'], 1)
         df_deaths = df_deaths.rename(columns={'Country/Region': 'Country'})
         df_deaths = df_deaths.groupby('Country').sum()
+
+        ## df_deaths is updated to contain a subset of the original df_deaths dataframe which includes the data
+        ##  for the selected countries and with data between start_date & end_date
+        ## Graph for every selected country is created using fig.add.subplot(111) and an image of that is created
+        ## to be rerunred from the function as image for presenation
         df_deaths = df_deaths.loc[countries]
         df_deaths = df_deaths.transpose()
         df_deaths.index = pd.to_datetime(df_deaths.index)
@@ -288,12 +294,19 @@ def dataquery():
         df_deaths.plot(ax = ax , kind = 'line' , figsize = (32, 14) , fontsize = 22 , grid = True)
         chart_deaths = plot_to_img(fig)
         
-        
+    ## The function reads into the df_recovered dataframe the confirmed CSV files/dataset)
+    ## The dataframe data (df_recovered) is organized such that all cases per country are grouped and unnecssary
+    ##  columns such as Lat, Long, Provice/State are removed/dropped and the total number cases per country is summed
+    ##  Then from the list of countries in the df_recovered dataframe we build the list of countries for user's choice
         df_recovered = pd.read_csv(path.join(path.dirname(__file__), 'static/data/recovered.csv'))
         df_recovered = df_recovered.drop(['Lat' , 'Long' , 'Province/State'], 1)
         df_recovered = df_recovered.rename(columns={'Country/Region': 'Country'})
         df_recovered = df_recovered.groupby('Country').sum()
 
+        ## df_recovered is updated to contain a subset of the original df_recovered dataframe which includes the data
+        ##  for the selected countries and with data between start_date & end_date
+        ## Graph for every selected country is created using fig.add.subplot(111) and an image of that is created
+        ## to be rerunred from the function as image for presenation
         df_recovered = df_recovered.loc[countries]
         df_recovered = df_recovered.transpose()
         df_recovered.index = pd.to_datetime(df_recovered.index)
