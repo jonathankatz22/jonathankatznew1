@@ -229,10 +229,14 @@ def dataquery():
 
     ## setting default values to start_date & end_date
     form1 = Covid19(start_date = pd.Timestamp("2020-01-22"),end_date = pd.Timestamp("2020-05-08"))
-    
-    chart_confirmed = ''
-    chart_deaths = ''
-    chart_recovered = ''
+
+    chart_confirmed = 'static/imgs/covid_19_pandemic.jpg'
+    chart_deaths = 'static/imgs/white.png'
+    chart_recovered = 'static/imgs/white.png'
+
+    confirmed1 = ''
+    deaths1 = ''
+    recovered1 = ''
    
     ## setting font size for graph legend (countries name)
     plt.rc('legend',fontsize=22)
@@ -253,6 +257,9 @@ def dataquery():
         countries = form1.countries.data 
         start_date = form1.start_date.data
         end_date = form1.end_date.data
+        confirmed1 = "Confirmed"
+        deaths1 = "Deaths"
+        recovered1 = "Recovered"
        
         ## df_confimed is updated to contain a subset of the original df_comnfimred dataframe which includes the data
         ##  for the selected countries and with data between start_date & end_date
@@ -286,6 +293,7 @@ def dataquery():
         df_recovered = df_recovered.drop(['Lat' , 'Long' , 'Province/State'], 1)
         df_recovered = df_recovered.rename(columns={'Country/Region': 'Country'})
         df_recovered = df_recovered.groupby('Country').sum()
+
         df_recovered = df_recovered.loc[countries]
         df_recovered = df_recovered.transpose()
         df_recovered.index = pd.to_datetime(df_recovered.index)
@@ -301,7 +309,10 @@ def dataquery():
         form1 = form1,
         chart_confirmed = chart_confirmed,
         chart_deaths = chart_deaths,
-        chart_recovered = chart_recovered
+        chart_recovered = chart_recovered,
+        confirmed = confirmed1,
+        deaths = deaths1,
+        recovered = recovered1
     )
 
 def plot_to_img(fig):

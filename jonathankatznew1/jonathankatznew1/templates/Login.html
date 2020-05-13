@@ -8,6 +8,7 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for message in messages %}
+        <h3>{{ message[1] }}</h3>
         <br />
         {% endfor %}
         {% endif %}
@@ -35,7 +36,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td  style="color: blue">
+                    <td style="color: blue">
                         {{ form.password.label }}
                     </td>
                     <td>
@@ -51,7 +52,7 @@
                     <td></td>
                     <td>
                         <div class="input submit">
-                            <input class="btn btn-success" type="submit" value="Login">
+                            <input class="btn btn-primary" type="submit" value="Login">
                         </div>
                     <td>
                     <td></td>
