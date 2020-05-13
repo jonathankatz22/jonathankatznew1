@@ -1,65 +1,67 @@
 ﻿{% extends "layout.html" %}
 
 {% block content %}
+    
+        <h1 style="color: darkred"> {{ title }} </h1>
 
-<h1> {{ title }} </h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for message in messages %}
+        <br />
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <br /><br /><br />
 
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-    {% for message in messages %}
-<h3>{{ message[1] }}</h3>
-<br />
-    {% endfor %}
-{% endif %}
-{% endwith %}
 
-<br /><br /><br />
+        <form method=post>
+            {{ form.csrf }}
+            {{ form.csrf_token }}
+            <table>
+                <tr>
+                    <td style="color: blue">
+                        {{ form.username.label }}
+                    </td>
+                    <td>
+                        {{ form.username }}
+                    </td>
+                    <td>
+                        {% if form.username.errors %}
+                        <ul class="text-danger">{% for error in form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td  style="color: blue">
+                        {{ form.password.label }}
+                    </td>
+                    <td>
+                        {{ form.password }}
+                    </td>
+                    <td>
+                        {% if form.password.errors %}
+                        <ul class="text-danger">{% for error in form.password.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="input submit">
+                            <input class="btn btn-success" type="submit" value="Login">
+                        </div>
+                    <td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
 
-<form method=post>
-    {{ form.csrf }}
-    {{ form.csrf_token }}
-    <table>
-        <tr>
-            <td>
-                {{ form.username.label }}
-            </td>
-            <td>
-                {{ form.username }}
-            </td>
-            <td>
-                {% if form.username.errors %}
-                <ul class="text-danger">{% for error in form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form.password.label }}
-            </td>
-            <td>
-                {{ form.password }}
-            </td>
-            <td>
-                {% if form.password.errors %}
-                <ul class="text-danger">{% for error in form.password.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <div class="input submit">
-                    <input type="submit" value="Login">
-                </div>
-            <td>
-            <td></td>
-        </tr>
-    </table>
-</form>
-<style>
-    td, tr, table {
-        font-size: 22px
-    }
-</style>
-    {% endblock %}
+        <style>
+            td, tr, table {
+                font-size: 22px
+            }
+        </style>
+        {% endblock %}

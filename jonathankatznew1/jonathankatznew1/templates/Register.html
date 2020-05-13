@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1> {{ title }} </h1>
+<h1 style="color: darkred" > {{ title }} </h1>
 
 
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -21,7 +21,7 @@
     {{ form.csrf_token }}
     <table>
         <tr>
-            <td>
+            <td style="color: blue">
                 {{ form.FirstName.label }}
             </td>
             <td>
@@ -34,7 +34,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="color: blue">
                 {{ form.LastName.label }}
             </td>
             <td>
@@ -47,7 +47,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="color: blue">
                 {{ form.PhoneNum.label }}
             </td>
             <td>
@@ -60,7 +60,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="color: blue">
                 {{ form.EmailAddr.label }}
             </td>
             <td>
@@ -73,7 +73,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="color: blue">
                 {{ form.username.label }}
             </td>
             <td>
@@ -86,7 +86,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="color: blue">
                 {{ form.password.label }}
             </td>
             <td>
@@ -102,13 +102,14 @@
             <td></td>
             <td>
                 <div class="input submit">
-                    <input type="submit" value="Register">
+                    <input class="btn btn-success" type="submit" value="Register">
                 </div>
             <td>
             <td></td>
         </tr>
     </table>
 </form>
+
 
 <style>
     td, tr, table {
