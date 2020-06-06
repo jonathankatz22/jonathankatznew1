@@ -219,7 +219,7 @@ def confirmed():
 
 # The dataquery() function that renders the DataQuery page. The dataquery() function uses the COVID19 form that cotains start_Date,
 # end_date, miltiple_countries and submit. The function reads into 3 dataframes the 3 CSV files/datasets (confirmed, deaths, recovered)
-# The three dataframes data (df_deatha, df_confirmed, df_recovered) is organized such that all cases per country are grouped and unnecssary columns are removed/dropped. 
+# The three dataframes data (df_deaths, df_confirmed, df_recovered) is organized such that all cases per country are grouped and unnecssary columns are removed/dropped. 
 # The organized dataframes are then plotted as a line graph allowing multipe graphs (one graph for every country selected using the object ax = fig.add_subplot(111))
 # The dataquery() function renders then the dataquery page and returns to it the 3 graphs (each with or more selected countries) 
 @app.route('/dataquery' , methods = ['GET' , 'POST'])
